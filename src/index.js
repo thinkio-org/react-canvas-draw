@@ -60,7 +60,8 @@ export default class extends PureComponent {
     imgSrc: PropTypes.string,
     saveData: PropTypes.string,
     immediateLoading: PropTypes.bool,
-    hideInterface: PropTypes.bool
+    hideInterface: PropTypes.bool,
+    zoom: PropTypes.number
   };
 
   static defaultProps = {
@@ -79,7 +80,8 @@ export default class extends PureComponent {
     imgSrc: "",
     saveData: "",
     immediateLoading: false,
-    hideInterface: false
+    hideInterface: false,
+    zoom: 1.0
   };
 
   constructor(props) {
@@ -352,12 +354,14 @@ export default class extends PureComponent {
 
     // return mouse/touch position inside canvas
     return {
-      x: clientX - rect.left,
-      y: clientY - rect.top
+      x: ((clientX / this.props.zoom) - rect.left),
+      y: ((clientY / this.props.zoom) - rect.top)
     };
   };
 
-  handlePointerMove = (x, y) => {
+  handlePointerMove = (a, b) => {
+    let x = a
+    let y = b
     if (this.props.disabled) return;
 
     this.lazy.update({ x, y });

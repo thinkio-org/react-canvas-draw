@@ -147,14 +147,18 @@ class Demo extends Component {
             />
           </div>
         </div>
-        <CanvasDraw
-          ref={canvasDraw => (this.saveableCanvas = canvasDraw)}
-          brushColor={this.state.color}
-          brushRadius={this.state.brushRadius}
-          lazyRadius={this.state.lazyRadius}
-          canvasWidth={this.state.width}
-          canvasHeight={this.state.height}
-        />
+        <h3>Zoomed</h3>
+        <div style={{ zoom: 1.5 }}>
+          <CanvasDraw
+            ref={canvasDraw => (this.saveableCanvas = canvasDraw)}
+            brushColor={this.state.color}
+            brushRadius={this.state.brushRadius}
+            lazyRadius={this.state.lazyRadius}
+            canvasWidth={this.state.width}
+            canvasHeight={this.state.height}
+            zoom={1.5}
+          />
+        </div>
         <p>
           The following is a disabled canvas with a hidden grid that we use to
           load & show your saved drawing.
