@@ -159,6 +159,22 @@ class Demo extends Component {
             zoom={1.5}
           />
         </div>
+        <br />
+        <h3>Eraser</h3>
+        <div>
+          <CanvasDraw
+            ref={canvasDraw => (this.saveableCanvas = canvasDraw)}
+            brushColor="rgba(155,12,60,0.9)"
+            imgSrc="https://upload.wikimedia.org/wikipedia/commons/a/a1/Nepalese_Mhapuja_Mandala.jpg"
+            brushRadius={3}
+            lazyRadius={1}
+            canvasWidth={this.state.width}
+            canvasHeight={this.state.height}
+            eraserActive={this.state.eraserActive}
+            eraserRadius={5}
+          />
+        </div>
+        <button onClick={() => { this.setState({ eraserActive: !this.state.eraserActive }) }}>Eraser is {this.state.eraserActive ? "on" : "off"}</button>
         <p>
           The following is a disabled canvas with a hidden grid that we use to
           load & show your saved drawing.

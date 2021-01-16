@@ -280,8 +280,35 @@ export default class extends PureComponent {
     });
   };
 
+  handleErase = (x, y) => {
+    //find a line with a point close to the place we just clicked.
+    let lineToEraseIndex = this.lines.findIndex(aLine => {
+      for (let aPoint of aLine.points) {
+        if (Math.abs(aPoint.x - x) < (this.props.eraserRadius || 5) && Math.abs(aPoint.y - y) < (this.props.eraserRadius || 5)) {
+          return true;
+        }
+      }
+    })
+    //remove that line from the lines array
+    if (lineToEraseIndex !== -1) {
+      let newLines = this.lines.filter((x, i) => {
+        return i !== lineToEraseIndex;
+      });
+      //re-paint the screen
+      this.clear();
+      this.simulateDrawingLines({ lines: newLines, immediate: true });
+      this.triggerOnChange();
+    }
+  }
+
   handleDrawStart = e => {
     e.preventDefault();
+
+    //Are they using the eraser? if so handle erase
+    if (this.props.eraserActive) {
+      const { x, y } = this.getPointerPos(e);
+      return this.handleErase(x, y);
+    }
 
     // Start drawing
     this.isPressing = true;
